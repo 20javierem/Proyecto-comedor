@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Proyecto comedor</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Nombre comensal</string>
+    <string name="nav_header_subtitle">Celular comensal</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_code">Código</string>
+    <string name="menu_attendance">Asistencia</string>
+    <string name="menu_foods">Menus</string>
+    <string name="menu_diners">Comensales</string>
+</resources>
