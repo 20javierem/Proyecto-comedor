@@ -14,11 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DinerAdapter extends ArrayAdapter<Diner> {
-    private List<Diner> diners;
     private Context context;
 
-    public DinerAdapter(Context context, int resource) {
-        super(context, resource , new ArrayList<>());
+    public DinerAdapter(Context context, int resource,List<Diner> diners) {
+        super(context, resource , diners);
         this.context=context;
     }
 

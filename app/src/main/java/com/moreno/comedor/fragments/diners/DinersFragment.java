@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.moreno.comedor.MainActivity;
 import com.moreno.comedor.R;
 import com.moreno.comedor.adapters.DinerAdapter;
 import com.moreno.comedor.controlers.Diners;
@@ -20,7 +21,7 @@ import com.moreno.comedor.models.Diner;
 public class DinersFragment extends Fragment {
     private ListView listView;
     private FragmentDinersBinding binding;
-
+    public static ArrayAdapter<Diner> adapter;
     public DinersFragment(){
 
     }
@@ -29,8 +30,7 @@ public class DinersFragment extends Fragment {
         binding = FragmentDinersBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         listView=root.findViewById(R.id.listView);
-        ArrayAdapter<Diner> adapter=new DinerAdapter(root.getContext(),0);
-        Diners.all(adapter);
+        adapter=new DinerAdapter(root.getContext(),0, MainActivity.diners);
         listView.setAdapter(adapter);
         return root;
     }

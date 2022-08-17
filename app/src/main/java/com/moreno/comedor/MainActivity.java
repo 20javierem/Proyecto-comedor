@@ -12,7 +12,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.moreno.comedor.controlers.Diners;
 import com.moreno.comedor.databinding.ActivityMainBinding;
+import com.moreno.comedor.models.Diner;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
@@ -22,9 +24,12 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
-
+    public static List<Diner> diners=new ArrayList<>();
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private Button close;
@@ -49,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
     private void init(){
+        diners= Diners.all();
         close= findViewById(R.id.tv_close);
         close.setOnClickListener(new View.OnClickListener() {
             @Override

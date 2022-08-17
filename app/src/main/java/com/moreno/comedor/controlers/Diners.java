@@ -10,9 +10,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.moreno.comedor.fragments.diners.DinersFragment;
 import com.moreno.comedor.models.Diner;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Diners {
@@ -42,7 +45,8 @@ public class Diners {
         return diner;
     }
 
-    public static void all(ArrayAdapter<Diner> adapter){
+    public static List<Diner> all(){
+        List<Diner> diners=new ArrayList<>();
         try{
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference reference=database.getReference("diner_tbl");
@@ -52,28 +56,35 @@ public class Diners {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     Diner diner=dataSnapshot.getValue(Diner.class);
-                    adapter.add(diner);
+                    diners.add(diner);
                     dinerMap.put(diner.getId(),diner);
-                    adapter.notifyDataSetChanged();
+                    if(DinersFragment.adapter!=null){
+                        DinersFragment.adapter.notifyDataSetChanged();
+                    }
                 }
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                     Diner dinerUpdate=dataSnapshot.getValue(Diner.class);
                     Diner diner=dinerMap.get(dinerUpdate.getId());
+                    diner.setDni(dinerUpdate.getDni());
                     diner.setActive(dinerUpdate.isActive());
                     diner.setMale(dinerUpdate.isMale());
                     diner.setPhone(dinerUpdate.getPhone());
                     diner.setNames(dinerUpdate.getNames());
                     diner.setLastNames(diner.getLastNames());
-                    adapter.notifyDataSetChanged();
+                    if(DinersFragment.adapter!=null){
+                        DinersFragment.adapter.notifyDataSetChanged();
+                    }
                 }
                 @Override
                 public void onChildRemoved(DataSnapshot dataSnapshot) {
                     Diner dinerUpdate=dataSnapshot.getValue(Diner.class);
                     Diner diner=dinerMap.get(dinerUpdate.getId());
-                    adapter.remove(diner);
+                    diners.remove(diner);
                     dinerMap.remove(dinerUpdate.getId());
-                    adapter.notifyDataSetChanged();
+                    if(DinersFragment.adapter!=null){
+                        DinersFragment.adapter.notifyDataSetChanged();
+                    }
                 }
                 @Override
                 public void onChildMoved(DataSnapshot dataSnapshot, String s) {
@@ -87,5 +98,6 @@ public class Diners {
         }catch (Exception e){
             e.printStackTrace();
         }
+        return diners;
     }
 }
