@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/unamad" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/tvUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/tvPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -43,7 +43,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUser" />
 
     <Button
         android:id="@+id/button"
@@ -66,5 +66,5 @@
         android:layout_marginTop="8dp"
         android:text="olvidé mi contraseña"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,6 @@
 package com.moreno.comedor.controlers;
 
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 
@@ -23,9 +23,32 @@ public class Diners {
     public static Diner get(Integer id){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference=database.getReference("diner_tbl");
-        Diner diner=reference.orderByChild("id").equalTo(String.valueOf(id)).get().getResult().getValue(Diner.class);
-
+        Diner diner=new Diner();
         reference.orderByChild("id").equalTo(String.valueOf(id)).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Diner diner1=snapshot.getValue(Diner.class);
+                diner.setDni(diner1.getDni());
+                diner.setActive(diner1.isActive());
+                diner.setPhone(diner1.getPhone());
+                diner.setMale(diner1.isMale());
+                diner.setNames(diner1.getNames());
+                diner.setLastNames(diner1.getLastNames());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return diner;
+    }
+
+    public static Diner getByUser(String nameUser){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference=database.getReference("diner_tbl");
+        Diner diner=new Diner();
+        reference.child("nameUser").equalTo(nameUser).limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Diner diner1=snapshot.getValue(Diner.class);
