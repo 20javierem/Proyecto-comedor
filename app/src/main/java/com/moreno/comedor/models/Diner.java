@@ -1,16 +1,6 @@
 package com.moreno.comedor.models;
 
-import android.widget.ArrayAdapter;
-
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.moreno.comedor.modelsFirebase.FBDayAttendance;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.moreno.comedor.utils.Utilities;
 
 public class Diner {
 
@@ -21,6 +11,8 @@ public class Diner {
     private String dni;
     private String phone;
     private boolean active;
+    private String nameUser;
+    private String pasword;
 
     public Integer getId() {
         return id;
@@ -72,6 +64,22 @@ public class Diner {
 
     public boolean isActive() {
         return active;
+    }
+
+    public String getNameUser() {
+        return nameUser;
+    }
+
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
+    }
+
+    public String getPasword() {
+        return Utilities.desencriptar(pasword);
+    }
+
+    public void setPasword(String pasword) {
+        this.pasword = Utilities.encriptar(pasword);
     }
 
     public void setActive(boolean active) {

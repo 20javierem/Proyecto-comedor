@@ -1,7 +1,5 @@
 package com.moreno.comedor.fragments.diners;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +20,10 @@ import com.moreno.comedor.models.Diner;
 public class DinersFragment extends Fragment {
     private ListView listView;
     private FragmentDinersBinding binding;
+
+    public DinersFragment(){
+
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentDinersBinding.inflate(inflater, container, false);

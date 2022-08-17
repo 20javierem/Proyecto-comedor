@@ -9,6 +9,6 @@
 
     <string name="menu_code">Código</string>
     <string name="menu_attendance">Asistencia</string>
-    <string name="menu_foods">Menus</string>
+    <string name="menu_foods">Menu del día</string>
     <string name="menu_diners">Comensales</string>
 </resources>

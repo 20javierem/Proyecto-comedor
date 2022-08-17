@@ -1,16 +1,17 @@
 package com.moreno.comedor.controlers;
 
-import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.moreno.comedor.databinding.FragmentMenusBinding;
 import com.moreno.comedor.models.DayAttendance;
 import com.moreno.comedor.modelsFirebase.FBDayAttendance;
 import com.moreno.comedor.utils.Utilities;
@@ -23,7 +24,7 @@ public class DayAttendances {
         DatabaseReference reference=database.getReference("dayAttendance_tbl");
         FBDayAttendance fbDayAttendance=reference.orderByChild("id").equalTo(String.valueOf(id)).get().getResult().getValue(FBDayAttendance.class);
         DayAttendance dayAttendance=new DayAttendance(fbDayAttendance);
-        reference.orderByChild("id").equalTo(String.valueOf(id)).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.orderByChild("id").equalTo(String.valueOf(id)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 FBDayAttendance fbDayAttendance=snapshot.getValue(FBDayAttendance.class);
@@ -32,7 +33,6 @@ public class DayAttendances {
                 dayAttendance.setPercentageNotAtendet(fbDayAttendance.getPercentageNotAtendet());
                 dayAttendance.setPercentageAtendet(fbDayAttendance.getPercentageAtendet());
                 dayAttendance.setTotalDinerAttendance(fbDayAttendance.getTotalDinerAttendance());
-                dayAttendance.setMenuDescription(fbDayAttendance.getMenuDescription());
             }
 
             @Override
@@ -43,38 +43,40 @@ public class DayAttendances {
         return dayAttendance;
     }
 
-    public static DayAttendance getOfDay(Date date){
+    public static void getOfDay(FragmentMenusBinding binding, Date date){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference=database.getReference("dayAttendance_tbl");
-        FBDayAttendance fbDayAttendance=reference.orderByChild("date").startAt(Utilities.formatoFecha.format(date)).endAt(Utilities.formatoFecha.format(date)).get().getResult().getValue(FBDayAttendance.class);
-        Task task=reference.orderByChild("date").startAt(Utilities.formatoFecha.format(date)).endAt(Utilities.formatoFecha.format(date)).get();
+        reference.orderByKey().equalTo(Utilities.formatoFecha.format(date)).limitToLast(1).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                FBDayAttendance fbDayAttendance=snapshot.getValue(FBDayAttendance.class);
+                binding.tvLaunch.setText(fbDayAttendance.getLaunch());
+                binding.tvDessert.setText(fbDayAttendance.getDessert());
+                binding.tvBeverage.setText(fbDayAttendance.getBeverage());
+            }
 
-        task.addOnSuccessListener(result -> {
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                FBDayAttendance fbDayAttendance=snapshot.getValue(FBDayAttendance.class);
+                binding.tvLaunch.setText(fbDayAttendance.getLaunch());
+                binding.tvDessert.setText(fbDayAttendance.getDessert());
+                binding.tvBeverage.setText(fbDayAttendance.getBeverage());
+            }
 
-                }).addOnFailureListener(e -> {
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
 
-                });
-        if(fbDayAttendance!=null){
-            DayAttendance dayAttendance=new DayAttendance(fbDayAttendance);
-            reference.orderByChild("id").equalTo(String.valueOf(dayAttendance.getId())).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    FBDayAttendance fbDayAttendance=snapshot.getValue(FBDayAttendance.class);
-                    dayAttendance.setTotalDinerAttendance(fbDayAttendance.getTotalDinerAttendance());
-                    dayAttendance.setState(fbDayAttendance.isState());
-                    dayAttendance.setPercentageNotAtendet(fbDayAttendance.getPercentageNotAtendet());
-                    dayAttendance.setPercentageAtendet(fbDayAttendance.getPercentageAtendet());
-                    dayAttendance.setTotalDinerAttendance(fbDayAttendance.getTotalDinerAttendance());
-                    dayAttendance.setMenuDescription(fbDayAttendance.getMenuDescription());
-                }
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-                }
-            });
-            return dayAttendance;
-        }
-        return null;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

@@ -1,9 +1,7 @@
 package com.moreno.comedor.controlers;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,17 +12,13 @@ import com.moreno.comedor.models.Diner;
 import com.moreno.comedor.models.DinerAttendance;
 import com.moreno.comedor.modelsFirebase.FBDayAttendance;
 import com.moreno.comedor.modelsFirebase.FBDinerAttendance;
-import com.moreno.comedor.utils.Utilities;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class DinerAttendances {
 
-    public static void getOfDayAttendance(DayAttendance dayAttendance,FBDayAttendance fbDayAttendance){
+    public static void getOfDayAttendance(DayAttendance dayAttendance, FBDayAttendance fbDayAttendance){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference=database.getReference("dinnerAttendance_tbl");
         Map<Integer,Diner> dinerMap=new HashMap<>();

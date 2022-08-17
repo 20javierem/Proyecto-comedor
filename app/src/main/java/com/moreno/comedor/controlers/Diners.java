@@ -41,10 +41,12 @@ public class Diners {
         });
         return diner;
     }
+
     public static void all(ArrayAdapter<Diner> adapter){
         try{
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference reference=database.getReference("diner_tbl");
+            System.out.println(reference.getDatabase().getApp());
             Map<Integer,Diner> dinerMap=new HashMap<>();
             reference.orderByChild("id").addChildEventListener(new ChildEventListener() {
                 @Override

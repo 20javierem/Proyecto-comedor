@@ -10,11 +10,13 @@ public class FBDayAttendance {
     private Date date;
     private boolean state=true;
     private List<Integer> attendances=new ArrayList<>();
-    private Integer totalDinerAttendance=0;
-    private Integer totalDinerNotAttendance=0;
-    private String percentageAtendet="0%";
-    private String percentageNotAtendet="100%";
-    private String menuDescription="";
+    private Integer totalDinerAttendance;
+    private Integer totalDinerNotAttendance;
+    private String percentageAtendet;
+    private String percentageNotAtendet;
+    private String launch;
+    private String beverage;
+    private String dessert;
 
     public FBDayAttendance(DayAttendance dayAttendance){
         setId(dayAttendance.getId());
@@ -24,11 +26,17 @@ public class FBDayAttendance {
         setTotalDinerNotAttendance(dayAttendance.getTotalDinerNotAttendance());
         setTotalDinerAttendance(dayAttendance.getTotalDinerAttendance());
         setState(dayAttendance.isState());
-        setMenuDescription(dayAttendance.getMenuDescription());
+        setLaunch(dayAttendance.getLaunch());
+        setDessert(dayAttendance.getDessert());
+        setBeverage(dayAttendance.getBeverage());
         for (DinerAttendance dinerAttendance:dayAttendance.getAttendances()){
             getAttendances().add(dinerAttendance.getId());
         }
     }
+    public FBDayAttendance(){
+
+    }
+
     public Integer getId() {
         return id;
     }
@@ -93,11 +101,27 @@ public class FBDayAttendance {
         this.percentageNotAtendet = percentageNotAtendet;
     }
 
-    public String getMenuDescription() {
-        return menuDescription;
+    public String getLaunch() {
+        return launch;
     }
 
-    public void setMenuDescription(String menuDescription) {
-        this.menuDescription = menuDescription;
+    public void setLaunch(String launch) {
+        this.launch = launch;
+    }
+
+    public String getBeverage() {
+        return beverage;
+    }
+
+    public void setBeverage(String beverage) {
+        this.beverage = beverage;
+    }
+
+    public String getDessert() {
+        return dessert;
+    }
+
+    public void setDessert(String dessert) {
+        this.dessert = dessert;
     }
 }

@@ -25,11 +25,11 @@ public class DinerAdapter extends ArrayAdapter<Diner> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View layout= LayoutInflater.from(context).inflate(R.layout.item_diner,parent,false);
-        Diner product=getItem(position);
+        Diner diner=getItem(position);
         TextView name=layout.findViewById(R.id.nameDiner);
-        TextView price=layout.findViewById(R.id.phoneDiner);
-        name.setText(product.getNames());
-        price.setText(product.getPhone());
+        TextView dni=layout.findViewById(R.id.dniDiner);
+        name.setText(diner.getLastNames()+", "+diner.getNames());
+        dni.setText(diner.getDni());
         return layout;
     }
 }

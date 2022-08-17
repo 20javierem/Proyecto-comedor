@@ -19,17 +19,11 @@ import java.util.Date;
 
 public class MenusFragment extends Fragment {
     private FragmentMenusBinding binding;
-    private TextView menuDescription;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         MenusViewModel menusViewModel = new ViewModelProvider(this).get(MenusViewModel.class);
         binding = FragmentMenusBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        menuDescription = binding.menuDescription;
-        DayAttendance dayAttendance= DayAttendances.getOfDay(new Date());
-        if(dayAttendance!=null){
-            menuDescription.setText(dayAttendance.getMenuDescription());
-        }
+        DayAttendances.getOfDay(binding,new Date());
         return root;
     }
 

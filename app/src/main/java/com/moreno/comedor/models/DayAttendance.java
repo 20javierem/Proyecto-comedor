@@ -17,7 +17,9 @@ public class DayAttendance {
     private Integer totalDinerNotAttendance=0;
     private String percentageAtendet="0%";
     private String percentageNotAtendet="100%";
-    private String menuDescription="";
+    private String launch="";
+    private String beverage="";
+    private String dessert="";
 
     public Integer getId() {
         return id;
@@ -83,12 +85,32 @@ public class DayAttendance {
         this.percentageNotAtendet = percentageNotAtendet;
     }
 
-    public String getMenuDescription() {
-        return menuDescription;
+    public String getLaunch() {
+        return launch;
     }
 
-    public void setMenuDescription(String menuDescription) {
-        this.menuDescription = menuDescription;
+    public void setLaunch(String launch) {
+        this.launch = launch;
+    }
+
+    public String getBeverage() {
+        return beverage;
+    }
+
+    public void setBeverage(String beverage) {
+        this.beverage = beverage;
+    }
+
+    public String getDessert() {
+        return dessert;
+    }
+
+    public void setDessert(String dessert) {
+        this.dessert = dessert;
+    }
+
+    public DayAttendance(){
+
     }
 
     public DayAttendance(FBDayAttendance fbDayAttendance){
@@ -99,7 +121,9 @@ public class DayAttendance {
         setTotalDinerNotAttendance(fbDayAttendance.getTotalDinerNotAttendance());
         setTotalDinerAttendance(fbDayAttendance.getTotalDinerAttendance());
         setState(fbDayAttendance.isState());
-        setMenuDescription(fbDayAttendance.getMenuDescription());
+        setLaunch(fbDayAttendance.getLaunch());
+        setDessert(fbDayAttendance.getDessert());
+        setBeverage(fbDayAttendance.getBeverage());
         for (Integer integer: fbDayAttendance.getAttendances()){
             getAttendances().add(DinerAttendances.get(integer));
         }

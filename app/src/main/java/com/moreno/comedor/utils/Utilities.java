@@ -17,7 +17,7 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Utilities {
-    public static DateFormat formatoFecha=new SimpleDateFormat("yyyy-MM-dd");
+    public static DateFormat formatoFecha=new SimpleDateFormat("dd-MM-yyyy");
     public static SecretKeySpec getSecretKey(){
         byte[] salt = "12345678".getBytes();
         int iterationCount = 40000;
