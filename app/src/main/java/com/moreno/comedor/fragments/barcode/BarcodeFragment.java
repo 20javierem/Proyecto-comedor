@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.zxing.BarcodeFormat;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.moreno.comedor.MainActivity;
 import com.moreno.comedor.databinding.FragmentBarcodeBinding;
 
 public class BarcodeFragment extends Fragment {
@@ -36,8 +37,11 @@ public class BarcodeFragment extends Fragment {
     private void init(){
         try {
             BarcodeEncoder barcodeEncoder=new BarcodeEncoder();
-            Bitmap bitmap= barcodeEncoder.encodeBitmap("62020554", BarcodeFormat.CODABAR,850,400);
-            binding.barcode.setImageBitmap(bitmap);
+            if(MainActivity.diner!=null){
+                Bitmap bitmap= barcodeEncoder.encodeBitmap(MainActivity.diner.getDni(), BarcodeFormat.CODABAR,850,400);
+                binding.tvDNI.setText(MainActivity.diner.getDni());
+                binding.barcode.setImageBitmap(bitmap);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

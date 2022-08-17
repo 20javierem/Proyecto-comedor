@@ -1,12 +1,15 @@
 package com.moreno.comedor;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -33,10 +36,12 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private Button close;
+    public static Diner diner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        diner=getIntent().getParcelableExtra("diner");
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -51,15 +56,22 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
         init();
     }
+
     private void init(){
+        TextView nameDiner=binding.navView.getHeaderView(0).findViewById(R.id.name_diner);
+        TextView numberDiner=binding.navView.getHeaderView(0).findViewById(R.id.phone_diner);
+        nameDiner.setText(diner.getNames()+" "+diner.getLastNames());
+        numberDiner.setText(diner.getPhone());
         diners= Diners.all();
         close= findViewById(R.id.tv_close);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"Accion",Toast.LENGTH_LONG).show();
+                Intent intent=new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
             }
         });
     }
